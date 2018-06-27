@@ -1,5 +1,5 @@
 {
-  "name": "glee",
+  "name": "hecho-en-casa-backend",
   "version": "2.0.0",
   "description": "Hapi boilerplate with glue, jest, ES6+ (stage-3), build scripts and everything you need to quick-start backend development with Flow type checking.",
   "engineStrict": true,
