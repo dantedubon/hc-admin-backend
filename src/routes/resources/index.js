@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Joi from 'joi';
 import Pack from './package.json';
-import { EncounterModel } from '../../domain/validators/encounter.schema';
+import { CityModel } from '../../domain/validators/schemas/city.schema';
 
 import type { Command } from '../../domain/types/resources';
 
@@ -38,6 +38,9 @@ exports.default = {
         options: {
           tags: ['api'],
           auth: false,
+          validate: {
+            params: CityModel,
+          },
         },
       },
       {

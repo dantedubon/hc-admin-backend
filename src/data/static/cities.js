@@ -1,4 +1,6 @@
-const Cities = [
+/* eslint-disable quote-props */
+
+const Cities = {
   '1': [
     { id: 1, label: 'Arizona' },
     { id: 2, label: 'El Porvenir' },
@@ -333,6 +335,6 @@ const Cities = [
     { id: 297, label: 'Yorito' },
     { id: 298, label: 'Yoro' },
   ],
-];
+};
 
 export { Cities };

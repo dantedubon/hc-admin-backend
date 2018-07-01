@@ -22,6 +22,10 @@ export interface CommandHandler {
   repository: Repository<*, *>;
 }
 
+export interface ResourcesValidator {
+  validateCityRequest(provinceId: Number): Array<string>;
+}
+
 // Other objects
 export type Error = {
   error: string

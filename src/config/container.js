@@ -1,7 +1,10 @@
 import { createContainer, Lifetime, asValue } from 'awilix';
 import db from '../models';
 
+import { Cities } from '../data/static/cities';
 import { Provinces } from '../data/static/provinces';
+import { Sectors } from '../data/static/sectors';
+import { ValidationErrors } from '../data/static/validationErrors';
 
 const container = createContainer();
 
@@ -25,6 +28,13 @@ container.loadModules([`${__dirname}/../domain/command-handlers/*.js`], {
   },
 });
 
+container.loadModules([`${__dirname}/../domain/validators/*.js`], {
+  formatName: (name, descriptor) => `${toCamel(descriptor.value.name)}Validator`,
+  resolverOptions: {
+    lifetime: Lifetime.SINGLETON,
+  },
+});
+
 container.loadModules([`${__dirname}/../data/repositories/*.js`], {
   formatName: (name) => `${toCamel(name)}Repository`,
   resolverOptions: {
@@ -33,7 +43,10 @@ container.loadModules([`${__dirname}/../data/repositories/*.js`], {
 });
 
 container.register({
+  cities: asValue(Cities),
   provinces: asValue(Provinces),
+  sectors: asValue(Sectors),
+  validationErrors: asValue(ValidationErrors),
 });
 
 console.log('The container has the following objects');
