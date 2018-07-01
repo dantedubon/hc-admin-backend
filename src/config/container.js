@@ -1,6 +1,8 @@
 import { createContainer, Lifetime, asValue } from 'awilix';
 import db from '../models';
 
+import { Provinces } from '../data/static/provinces';
+
 const container = createContainer();
 
 function toCamel(a): string {
@@ -29,6 +31,11 @@ container.loadModules([`${__dirname}/../data/repositories/*.js`], {
     lifetime: Lifetime.SINGLETON,
   },
 });
+
+container.register({
+  provinces: asValue(Provinces),
+});
+
 console.log('The container has the following objects');
 console.log(container.registrations);
 export default container;
