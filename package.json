@@ -91,7 +91,8 @@
     "docker:start": "docker-compose up",
     "docker:test": "docker-compose run web npm test",
     "docker:test:watch": "docker-compose run web npm run test:watch",
-    "docker:stop": "docker-compose down"
+    "docker:stop": "docker-compose down",
+    "migrations": "sequelize db:migrate --config src/config/sequelize.js --migrations-path src/migrations"
   },
   "author": "Byron Sommardahl <byron@acklenavenue.com> (http://acklenavenue.com)",
   "license": "MIT",

@@ -28,8 +28,8 @@ container.loadModules([`${__dirname}/../domain/command-handlers/*.js`], {
   },
 });
 
-container.loadModules([`${__dirname}/../domain/validators/*.js`], {
-  formatName: (name, descriptor) => `${toCamel(descriptor.value.name)}Validator`,
+container.loadModules([`${__dirname}/../domain/mappers/*.js`], {
+  formatName: (name, descriptor) => `${toCamel(descriptor.value.name.toLowerCase())}Mapper`,
   resolverOptions: {
     lifetime: Lifetime.SINGLETON,
   },
@@ -37,6 +37,13 @@ container.loadModules([`${__dirname}/../domain/validators/*.js`], {
 
 container.loadModules([`${__dirname}/../data/repositories/*.js`], {
   formatName: (name) => `${toCamel(name)}Repository`,
+  resolverOptions: {
+    lifetime: Lifetime.SINGLETON,
+  },
+});
+
+container.loadModules([`${__dirname}/../domain/validators/*.js`], {
+  formatName: (name, descriptor) => `${toCamel(descriptor.value.name)}Validator`,
   resolverOptions: {
     lifetime: Lifetime.SINGLETON,
   },

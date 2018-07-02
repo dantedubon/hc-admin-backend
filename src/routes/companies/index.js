@@ -2,6 +2,8 @@
 import Joi from 'joi';
 import Pack from './package.json';
 
+import { CompanyRegisterModel } from '../../domain/validators/schemas/companyRegister.schema';
+import { CompanyUpdateModel } from '../../domain/validators/schemas/companyUpdate.schema';
 import type { Command } from '../../domain/types/encounter';
 
 const headersValidation = Joi.object({
@@ -28,30 +30,42 @@ exports.default = {
           }),
         options: {
           tags: ['api'],
-          auth: 'jwt',
+          auth: false,
           validate: {
-            headers: headersValidation,
-            payload: {
-              name: Joi.string().required(),
-              description: Joi.string().required(),
-              products: Joi.string().required(),
-              sectorId: Joi.number().min(1).required(),
-              provinceId: Joi.number().min(1).required(),
-              cityId: Joi.number().min(1).required(),
-              address: Joi.string().required(),
-              doesCompanyHaveBranches: Joi.boolean().required(),
-              branches: Joi.array().items(Joi.number()).required(),
-              email: Joi.string().email().required(),
-              primaryPhoneNumber: Joi.string().required(),
-              secondaryPhoneNumber: Joi.string().optional(),
-              facebook: Joi.string().optional(),
-              instagram: Joi.string().optional(),
-              website: Joi.string().optional(),
-              capitalPercentage: Joi.number().min(1).max(100).required(),
-              employeesPercentage: Joi.number().min(1).max(100).required(),
-              productivityPercentage: Joi.number().min(1).max(100).required(),
-            },
+            payload: CompanyRegisterModel,
           },
+        },
+      },
+      {
+        method: 'PUT',
+        path: '/companies/{id}',
+        handler: (request, h) =>
+          dispatch({
+            type: 'updateCompany',
+            data: Object.assign({}, request.payload, request.params),
+          }),
+        options: {
+          tags: ['api'],
+          auth: false,
+          validate: {
+            params: {
+              id: Joi.number().required(),
+            },
+            payload: CompanyUpdateModel,
+          },
+        },
+      },
+      {
+        method: 'GET',
+        path: '/companies',
+        handler: (request, h) =>
+          dispatch({
+            type: 'getAllCompanies',
+          }),
+
+        options: {
+          auth: false,
+          tags: ['api'],
         },
       },
     ]);
