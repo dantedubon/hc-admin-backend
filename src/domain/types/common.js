@@ -2,9 +2,10 @@
 
 // Interfaces
 export interface Model<TypeOfPKey, TypeOfEntity> {
+  find(query: Object, options?: Object) : Promise<Array<TypeOfEntity>>;
   findAll(options: Object): Promise<Array<TypeOfEntity>>;
   findById(id: TypeOfPKey): Promise<TypeOfEntity>;
-  create(newEntity: TypeOfEntity): Promise<TypeOfEntity>;
+  create(newEntity: any): Promise<TypeOfEntity>;
   update(updatedEntity: TypeOfEntity, options: Object): Promise<TypeOfEntity>;
   destroy(options: Object): Promise<number>;
 }
@@ -20,6 +21,12 @@ export interface Repository<TypeOfPKey, TypeOfEntity> {
 
 export interface CommandHandler {
   repository: Repository<*, *>;
+}
+
+export interface Mapper<TypeOfEntity, TypeOfDataSource> {
+  mapToDataSourceForCreation(entity: TypeOfEntity): TypeOfDataSource;
+  mapToDataSourceForUpdate(entity: TypeOfEntity): any;
+  mapToEntity(dataSource: any): TypeOfEntity;
 }
 
 // Other objects

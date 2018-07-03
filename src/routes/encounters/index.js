@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Joi from 'joi';
 import Pack from './package.json';
-import { EncounterModel } from '../../domain/validators/encounter.schema';
+import { EncounterModel } from '../../domain/validators/schemas/encounter.schema';
 
 import type { Command } from '../../domain/types/encounter';
 
