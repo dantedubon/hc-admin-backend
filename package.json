@@ -71,8 +71,6 @@
   "scripts": {
     "clean": "rm -rf coverage dist tmp",
     "lint": "eslint . --fix",
-    "postlint": "npm run typecheck",
-    "typecheck": "flow check",
     "pretest": "npm run lint",
     "test": "npm run test-only",
     "test-only": "jest --coverage",
