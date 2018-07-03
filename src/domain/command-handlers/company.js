@@ -1,7 +1,8 @@
 import Boom from 'boom';
 
 import type { CompanyEntity, CompaniesValidator } from '../types/company';
-import type { CommandHandler, Repository } from '../types/common';
+import typeimport { ENGINE_METHOD_CIPHERS } from 'constants';
+ { CommandHandler, Repository } from '../types/common';
 
 export default class Companies implements CommandHandler {
   repository: Repository<number, CompanyEntity>;
@@ -36,5 +37,18 @@ export default class Companies implements CommandHandler {
 
   getAllCompanies(): Promise<Array<CompanyEntity>> {
     return this.repository.getAll();
+  }
+
+  getAllPendingRequests() {
+    return this.repository.getAllPendingRequests(); 
+  }
+  getAllDeniedRequests() {
+    return this.repository.getAllDeniedRequests(); 
+  }
+  getAllAcceptedRequests() {
+    return this.repository.getAllAcceptedRequests(); 
+  }
+  getAllDeletedRequests() {
+    return this.repository.getAllDeletedRequests(); 
   }
 }
