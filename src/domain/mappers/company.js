@@ -1,8 +1,10 @@
-import type { Mapper } from '../types/common';
-import type { CompanyDataSource, CompanyEntity } from '../types/company';
+import type { Mapper } from "../types/common";
+import type { CompanyDataSource, CompanyEntity } from "../types/company";
 
-export default class Company implements Mapper<CompanyEntity, CompanyDataSource> {
-  mapToDataSourceForCreation(entity: CompanyEntity): CompanyDataSource { // eslint-disable-line
+export default class Company
+  implements Mapper<CompanyEntity, CompanyDataSource> {
+  mapToDataSourceForCreation(entity: CompanyEntity): CompanyDataSource {
+    // eslint-disable-line
     const now: Date = new Date();
 
     const dataSource: CompanyDataSource = {
@@ -29,11 +31,13 @@ export default class Company implements Mapper<CompanyEntity, CompanyDataSource>
       isDeleted: false,
       createdAt: now,
       updatedAt: now,
+      status: entity.status
     };
     return dataSource;
   }
 
-  mapToDataSourceForUpdate(entity: CompanyEntity): any { // eslint-disable-line
+  mapToDataSourceForUpdate(entity: CompanyEntity): any {
+    // eslint-disable-line
     const dataSource: Object = Object.assign({}, entity);
 
     if (entity.branches && entity.branches.length > 0) {
@@ -49,11 +53,12 @@ export default class Company implements Mapper<CompanyEntity, CompanyDataSource>
     return dataSource;
   }
 
-  mapToEntity(dataSource: any): CompanyEntity { // eslint-disable-line
+  mapToEntity(dataSource: any): CompanyEntity {
+    // eslint-disable-line
     let branches: Array<number> = [];
 
-    if (dataSource.branches.split(',').length > 0) {
-      branches = branches.map((branch) => Number(branch));
+    if (dataSource.branches.split(",").length > 0) {
+      branches = branches.map(branch => Number(branch));
     }
 
     const entity: CompanyEntity = {
@@ -79,7 +84,7 @@ export default class Company implements Mapper<CompanyEntity, CompanyDataSource>
       isAccepted: dataSource.isAccepted,
       isDeleted: dataSource.isDeleted,
       createdAt: dataSource.createdAt,
-      updatedAt: dataSource.updatedAt,
+      updatedAt: dataSource.updatedAt
     };
     return entity;
   }
