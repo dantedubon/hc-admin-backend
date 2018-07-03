@@ -82,6 +82,60 @@ exports.default = {
         }
       },
       {
+        method: "POST",
+        path: "/companies/accepted/{id}",
+        handler: (request, h) =>
+          dispatch({
+            type: "acceptCompanyRequest",
+            data: request.params
+          }),
+        options: {
+          tags: ["api"],
+          auth: false,
+          validate: {
+            params: {
+              id: Joi.number().required()
+            }
+          }
+        }
+      },
+      {
+        method: "POST",
+        path: "/companies/denied/{id}",
+        handler: (request, h) =>
+          dispatch({
+            type: "denyCompanyRequest",
+            data: request.params
+          }),
+        options: {
+          tags: ["api"],
+          auth: false,
+          validate: {
+            params: {
+              id: Joi.number().required()
+            }
+          }
+        }
+      },
+      {
+        method: "POST",
+        path: "/companies/deleted/{id}",
+        handler: (request, h) =>
+          dispatch({
+            type: "deleteCompanyRequest",
+            data: request.params
+          }),
+        options: {
+          tags: ["api"],
+          auth: false,
+          validate: {
+            params: {
+              id: Joi.number().required()
+            }
+          }
+        }
+      },
+      {
         method: "GET",
         path: "/companies/denied",
         handler: (request, h) =>
