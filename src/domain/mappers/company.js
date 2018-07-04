@@ -1,8 +1,8 @@
-import type { Mapper } from "../types/common";
-import type { CompanyDataSource, CompanyEntity } from "../types/company";
+import type { Mapper } from '../types/common';
+import type { CompanyDataSource, CompanyEntity } from '../types/company';
 
 export default class Company
-  implements Mapper<CompanyEntity, CompanyDataSource> {
+implements Mapper<CompanyEntity, CompanyDataSource> {
   mapToDataSourceForCreation(entity: CompanyEntity): CompanyDataSource {
     // eslint-disable-line
     const now: Date = new Date();
@@ -31,7 +31,7 @@ export default class Company
       isDeleted: false,
       createdAt: now,
       updatedAt: now,
-      status: entity.status
+      status: entity.status,
     };
     return dataSource;
   }
@@ -57,8 +57,8 @@ export default class Company
     // eslint-disable-line
     let branches: Array<number> = [];
 
-    if (dataSource.branches.split(",").length > 0) {
-      branches = branches.map(branch => Number(branch));
+    if (dataSource.branches.split(',').length > 0) {
+      branches = branches.map((branch) => Number(branch));
     }
 
     const entity: CompanyEntity = {
@@ -84,7 +84,7 @@ export default class Company
       isAccepted: dataSource.isAccepted,
       isDeleted: dataSource.isDeleted,
       createdAt: dataSource.createdAt,
-      updatedAt: dataSource.updatedAt
+      updatedAt: dataSource.updatedAt,
     };
     return entity;
   }

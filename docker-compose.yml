@@ -19,6 +19,7 @@ services:
       - PG_PASSWORD=ramirez
       - PG_DATABASE=hc
       - PG_HOST=postgres
+      - IMAGES_DIRECTORY= /usr/src/app/images
   postgres:
     image: postgres:10.3-alpine
     environment:
