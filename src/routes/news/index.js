@@ -33,6 +33,29 @@ exports.default = {
           },
         },
       },
+      {
+        method: 'PUT',
+        path: '/news/{id}/images',
+        handler: (request, h) =>
+          dispatch({
+            type: 'updateNewsImage',
+            imageInformation: Object.assign({}, request.payload, request.params),
+          }),
+
+        options: {
+          tags: ['api'],
+          auth: false,
+          payload: {
+            output: 'stream',
+            allow: 'multipart/form-data', // important
+          },
+          validate: {
+            params: {
+              id: Joi.number().required(),
+            },
+          },
+        },
+      },
     ]);
   },
 };

@@ -10,4 +10,21 @@ export default class News {
   create(news) {
     return this.model.create(news);
   }
+
+  updateImage(id, data) {
+    return this.model
+      .update(
+        {
+          image: data,
+        },
+        {
+          where: { id },
+        },
+      )
+      .then((result) => result)
+      .catch((error) => {
+        console.log(error);
+        return ({ error: 'News image not uploaded' }: Error);
+      });
+  }
 }
