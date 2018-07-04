@@ -4,11 +4,10 @@ export default class News {
   }
 
   getAll() {
-    return this.model.findAll({ attributes: { exclude: ['image'] } }, { order: ['createdAt', 'DESC'] });
-  }
-
-  getAll() {
-    return this.model.findAll({ attributes: { exclude: ['image'] } }, { order: ['id'] });
+    return this.model.findAll(
+      { where: { isDeleted: false }, attributes: { exclude: ['image'] } },
+      { order: ['createdAt', 'DESC'] },
+    );
   }
 
   create(news) {
