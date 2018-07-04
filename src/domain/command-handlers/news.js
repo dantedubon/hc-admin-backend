@@ -14,6 +14,12 @@ export default class News implements CommandHandler {
     return this.repository.create(news);
   }
 
+  getNewsImage({ data }) {
+    const { id } = data;
+
+    return this.repository.getNewsImage(id);
+  }
+
   updateNewsImage({ imageInformation }) {
     const { id, NewsImage } = imageInformation;
     if (!NewsImage) {

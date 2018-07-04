@@ -56,6 +56,30 @@ exports.default = {
           },
         },
       },
+      {
+        method: 'GET',
+        path: '/news/{id}/image',
+        handler: (request, h) =>
+          dispatch({
+            type: 'getNewsImage',
+            data: request.params,
+          }).then((newsImage) => {
+            const response = h.response(newsImage);
+            response.type('image/jpeg');
+            return response;
+          }),
+
+        options: {
+          auth: false,
+          tags: ['api'],
+
+          validate: {
+            params: {
+              id: Joi.number().required(),
+            },
+          },
+        },
+      },
     ]);
   },
 };

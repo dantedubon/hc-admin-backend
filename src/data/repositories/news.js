@@ -27,4 +27,8 @@ export default class News {
         return ({ error: 'News image not uploaded' }: Error);
       });
   }
+
+  getNewsImage(id) {
+    return this.model.findById(id).then((response) => (response === null ? {} : response.image));
+  }
 }
