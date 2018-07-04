@@ -10,7 +10,7 @@ export default class Companies implements Repository<number, CompanyEntity> {
   }
 
   getAll(): Promise<Array<CompanyEntity>> {
-    return this.model.findAll({ order: ['id'] });
+    return this.model.findAll({ attributes: { exclude: ['image'] } }, { order: ['id'] });
   }
 
   getAllPendingRequests(): Promise<Array<CompanyEntity>> {
