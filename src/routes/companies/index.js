@@ -3,6 +3,7 @@ import Joi from 'joi';
 import Pack from './package.json';
 
 import { CompanyRegisterModel } from '../../domain/validators/schemas/companyRegister.schema';
+import { CompanySearchModel } from '../../domain/validators/schemas/companySearch.schema';
 import { CompanyUpdateModel } from '../../domain/validators/schemas/companyUpdate.schema';
 import { Command } from '../../domain/types/encounter';
 
@@ -84,11 +85,18 @@ exports.default = {
         handler: (request, h) =>
           dispatch({
             type: 'getAllCompanies',
+            data: {
+              province: request.query.province,
+              sector: request.query.sector,
+            },
           }),
 
         options: {
           auth: false,
           tags: ['api'],
+          validate: {
+            query: CompanySearchModel,
+          },
         },
       },
       {

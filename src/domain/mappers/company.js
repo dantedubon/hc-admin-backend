@@ -31,7 +31,7 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
       isDeleted: false,
       createdAt: now,
       updatedAt: now,
-      status: entity.status,
+      status: 'PENDING',
     };
     return dataSource;
   }
@@ -51,6 +51,23 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
     delete dataSource.createdAt;
 
     return dataSource;
+  }
+
+  mapToQuery(data): any {
+    const { province, sector } = data;
+    const query = {
+      status: 'ACCEPTED',
+    };
+
+    if (province !== 0) {
+      query.province = province;
+    }
+
+    if (sector !== 0) {
+      query.sector = sector;
+    }
+
+    return query;
   }
 
   mapToEntity(dataSource: any): CompanyEntity {

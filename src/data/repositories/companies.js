@@ -9,8 +9,18 @@ export default class Companies implements Repository<number, CompanyEntity> {
     this.model = companyModel;
   }
 
-  getAll(): Promise<Array<CompanyEntity>> {
-    return this.model.findAll({ attributes: { exclude: ['image'] } }, { order: ['id'] });
+  getAll(data): Promise<Array<CompanyEntity>> {
+    const query = this.mapper.mapToQuery(data);
+
+    return this.model.findAll(
+      {
+        where: query,
+        attributes: 
+          { exclude: ['image'] },
+      },
+      {
+        order: ['id'],
+      });
   }
 
   getAllPendingRequests(): Promise<Array<CompanyEntity>> {
