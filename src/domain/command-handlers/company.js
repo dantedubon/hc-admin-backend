@@ -66,8 +66,8 @@ export default class Companies implements CommandHandler {
 
     return this.repository.deleteCompanyRequest(id);
   }
-  getAllCompanies(): Promise<Array<CompanyEntity>> {
-    return this.repository.getAll();
+  getAllCompanies({ data }): Promise<Array<CompanyEntity>> {
+    return this.repository.getAll(data);
   }
 
   getAllPendingRequests() {

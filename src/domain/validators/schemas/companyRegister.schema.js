@@ -16,7 +16,6 @@ export const CompanyRegisterModel = Joi.object({
   facebook: Joi.string().optional().description('Facebook'),
   instagram: Joi.string().optional().description('Instagram'),
   website: Joi.string().optional().description('Website url'),
-  status: Joi.string().required().description('Status'),
   capitalPercentage: Joi.number().min(1).max(100).required()
     .description('Capital percentage'),
   employeesPercentage: Joi.number().min(1).max(100).required()
