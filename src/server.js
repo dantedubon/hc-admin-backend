@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign, no-console */
 const models = require('./models');
-
+require('dotenv').config();
 const Glue = require('glue');
 const manifest = require('./config');
 const Pack = require('./package.json');

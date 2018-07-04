@@ -10,7 +10,7 @@ export default class Companies implements Repository<number, CompanyEntity> {
   }
 
   getAll(): Promise<Array<CompanyEntity>> {
-    return this.model.findAll({ attributes: { exclude: ['image'] } }, { order: ['id'] });
+    return this.model.findAll({ order: ['id'] });
   }
 
   getAllPendingRequests(): Promise<Array<CompanyEntity>> {
@@ -88,6 +88,27 @@ export default class Companies implements Repository<number, CompanyEntity> {
         console.log(error);
         return ({ error: 'Company not found' }: Error);
       });
+  }
+
+  updateImage(id, data) {
+    return this.model
+      .update(
+        {
+          image: data,
+        },
+        {
+          where: { id },
+        },
+      )
+      .then((result) => result)
+      .catch((error) => {
+        console.log(error);
+        return ({ error: 'Company image not uploaded' }: Error);
+      });
+  }
+
+  getCompanyImage(id) {
+    return this.model.findById(id).then((response) => (response === null ? {} : response.image));
   }
 
   deleteCompanyRequest(id) {

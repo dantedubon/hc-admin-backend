@@ -1,7 +1,7 @@
-import Boom from "boom";
+import Boom from 'boom';
 
-import type { CompanyEntity, CompaniesValidator } from "../types/company";
-import type { CommandHandler, Repository } from "../types/common";
+import type { CompanyEntity, CompaniesValidator } from '../types/company';
+import type { CommandHandler, Repository } from '../types/common';
 
 export default class Companies implements CommandHandler {
   repository: Repository<number, CompanyEntity>;
@@ -21,14 +21,8 @@ export default class Companies implements CommandHandler {
     return this.repository.create(data);
   }
 
-  async updateCompany({
-    data
-  }: {
-    data: CompanyEntity
-  }): Promise<CompanyEntity> {
-    const validationErrors = await this.validator.validateCompanyForUpdate(
-      data
-    );
+  async updateCompany({ data }: { data: CompanyEntity }): Promise<CompanyEntity> {
+    const validationErrors = await this.validator.validateCompanyForUpdate(data);
 
     if (validationErrors.length > 0) {
       return Boom.badRequest(validationErrors);
@@ -37,10 +31,29 @@ export default class Companies implements CommandHandler {
     return this.repository.update(data.id, data);
   }
 
+  updateCompanyImage({ imageInformation }) {
+    const { id, CompanyImage } = imageInformation;
+    if (!CompanyImage) {
+      return Boom.badRequest('No image upload');
+    }
+    const { hapi } = CompanyImage;
+    const { filename } = hapi;
+    if (!filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return Boom.badRequest('No image upload');
+    }
+    return this.repository.updateImage(id, CompanyImage._data);
+  }
+
   acceptCompanyRequest({ data }) {
     const { id } = data;
 
     return this.repository.acceptCompanyRequest(id);
+  }
+
+  getCompanyImage({ data }) {
+    const { id } = data;
+
+    return this.repository.getCompanyImage(id);
   }
 
   denyCompanyRequest({ data }) {
