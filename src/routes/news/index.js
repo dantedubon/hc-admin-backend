@@ -58,6 +58,19 @@ exports.default = {
       },
       {
         method: 'GET',
+        path: '/news',
+        handler: (request, h) =>
+          dispatch({
+            type: 'getAllNews',
+          }),
+
+        options: {
+          auth: false,
+          tags: ['api'],
+        },
+      },
+      {
+        method: 'GET',
         path: '/news/{id}/image',
         handler: (request, h) =>
           dispatch({

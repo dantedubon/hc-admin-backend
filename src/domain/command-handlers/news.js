@@ -19,6 +19,9 @@ export default class News implements CommandHandler {
 
     return this.repository.getNewsImage(id);
   }
+  getAllNews() {
+    return this.repository.getAll();
+  }
 
   updateNewsImage({ imageInformation }) {
     const { id, NewsImage } = imageInformation;
