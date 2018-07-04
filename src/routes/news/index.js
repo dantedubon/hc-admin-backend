@@ -70,6 +70,24 @@ exports.default = {
         },
       },
       {
+        method: 'POST',
+        path: '/news/deleted/{id}',
+        handler: (request, h) =>
+          dispatch({
+            type: 'deleteNews',
+            data: request.params,
+          }),
+        options: {
+          tags: ['api'],
+          auth: false,
+          validate: {
+            params: {
+              id: Joi.number().required(),
+            },
+          },
+        },
+      },
+      {
         method: 'GET',
         path: '/news/{id}/image',
         handler: (request, h) =>

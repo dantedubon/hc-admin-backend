@@ -32,6 +32,23 @@ export default class News {
       });
   }
 
+  deleteNews(id) {
+    return this.model
+      .update(
+        {
+          isDeleted: true,
+        },
+        {
+          where: { id },
+        },
+      )
+      .then((result) => result)
+      .catch((error) => {
+        console.log(error);
+        return ({ error: 'News not found' }: Error);
+      });
+  }
+
   getNewsImage(id) {
     return this.model.findById(id).then((response) => (response === null ? {} : response.image));
   }
