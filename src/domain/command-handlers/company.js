@@ -32,16 +32,18 @@ export default class Companies implements CommandHandler {
   }
 
   updateCompanyImage({ imageInformation }) {
-    const { id, CompanyImage } = imageInformation;
-    if (!CompanyImage) {
+    const { id, file } = imageInformation;
+
+    if (!file) {
       return Boom.badRequest('No image upload');
     }
-    const { hapi } = CompanyImage;
+
+    const { hapi } = file;
     const { filename } = hapi;
-    if (!filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+    if (filename !== 'blob') {
       return Boom.badRequest('No image upload');
     }
-    return this.repository.updateImage(id, CompanyImage._data);
+    return this.repository.updateImage(id, file._data);
   }
 
   acceptCompanyRequest({ data }) {
@@ -50,10 +52,10 @@ export default class Companies implements CommandHandler {
     return this.repository.acceptCompanyRequest(id);
   }
 
-  getCompanyImage({ data }) {
+  async getCompanyImage({ data }) {
     const { id } = data;
-
-    return this.repository.getCompanyImage(id);
+    const image = await this.repository.getCompanyImage(id);
+    return image;
   }
 
   denyCompanyRequest({ data }) {

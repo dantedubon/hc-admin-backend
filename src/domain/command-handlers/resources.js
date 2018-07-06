@@ -19,6 +19,10 @@ export default class Resources implements CommandHandler {
     this.sectors = sectors;
   }
 
+  getAllCities(): Promise<any> { // eslint-disable-line class-methods-use-this
+    return Promise.resolve(this.cities);
+  }
+
   getCities({ provinceId }): Promise<Array<City>> { // eslint-disable-line class-methods-use-this
     const validationErrors: Array<string> = this.resourceValidator.validateCityRequest(provinceId);
 

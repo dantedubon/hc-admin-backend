@@ -55,6 +55,18 @@ exports.default = {
           auth: false,
         },
       },
+      {
+        method: 'GET',
+        path: '/resources/cities',
+        handler: (request, h) =>
+          dispatch({
+            type: 'getAllCities',
+          }),
+        options: {
+          tags: ['api'],
+          auth: false,
+        },
+      },
     ]);
   },
 };
