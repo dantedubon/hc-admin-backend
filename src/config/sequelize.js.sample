@@ -7,6 +7,9 @@ module.exports = {
     database: process.env.PG_DATABASE,
     host: process.env.PG_HOST,
     dialect: 'postgres',
+    dialectOptions: {
+    ssl: true
+  }
   },
   staging: {
     username: process.env.PG_USER,
@@ -14,6 +17,9 @@ module.exports = {
     database: process.env.PG_DATABASE,
     host: process.env.PG_HOST,
     dialect: 'postgres',
+    dialectOptions: {
+    ssl: true
+  }
   },
   dev: {
     username: process.env.PG_USER,
@@ -22,6 +28,9 @@ module.exports = {
     host: process.env.PG_HOST,
     dialect: 'postgres',
     operatorsAliases: Sequelize.Op,
+    dialectOptions: {
+    ssl: true
+  }
   },
 };
 
