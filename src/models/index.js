@@ -7,6 +7,8 @@ const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'dev';
 const config = require('../config/sequelize')[env];
 
+console.log('Variables de Configuracion');
+console.log(config);
 const db = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 sequelize
