@@ -24,16 +24,16 @@ export default class News implements CommandHandler {
   }
 
   updateNewsImage({ imageInformation }) {
-    const { id, NewsImage } = imageInformation;
-    if (!NewsImage) {
+    const { id, file } = imageInformation;
+    if (!file) {
       return Boom.badRequest('No image upload');
     }
-    const { hapi } = NewsImage;
+    const { hapi } = file;
     const { filename } = hapi;
     if (!filename.match(/\.(jpg|jpeg|png|gif)$/)) {
       return Boom.badRequest('No image upload');
     }
-    return this.repository.updateImage(id, NewsImage._data);
+    return this.repository.updateImage(id, file._data);
   }
 
   deleteNews({ data }) {
