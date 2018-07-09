@@ -8,7 +8,6 @@ export const CompanyUpdateModel = Joi.object({
   province: Joi.number().min(1).optional().description('Province'),
   city: Joi.number().min(1).optional().description('City'),
   address: Joi.string().optional().description('Address'),
-  doesCompanyHaveBranches: Joi.boolean().optional().description('Does company have branches'),
   branches: Joi.array().items(Joi.number()).optional().description('Branches'),
   email: Joi.string().email().optional().description('Email'),
   primaryPhoneNumber: Joi.string().optional().description('Primary phone number'),

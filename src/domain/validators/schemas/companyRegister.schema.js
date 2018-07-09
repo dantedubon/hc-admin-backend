@@ -8,7 +8,6 @@ export const CompanyRegisterModel = Joi.object({
   province: Joi.number().min(1).required().description('Province'),
   city: Joi.number().min(1).required().description('City'),
   address: Joi.string().required().description('Address'),
-  doesCompanyHaveBranches: Joi.boolean().required().description('Does company have branches'),
   branches: Joi.array().items(Joi.number()).required().description('Branches'),
   email: Joi.string().email().required().description('Email'),
   primaryPhoneNumber: Joi.string().required().description('Primary phone number'),

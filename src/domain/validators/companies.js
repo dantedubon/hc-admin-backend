@@ -38,9 +38,18 @@ export default class Company implements CompaniesValidator {
       return errors;
     }
 
-    errors = this.resourceValidator.validateCityForUpdate(company, errors);
-    errors = this.resourceValidator.validateProvinceForUpdate(company, errors);
-    errors = this.resourceValidator.validateSectorForUpdate(company, errors);
+    if (company.city) {
+      errors = this.resourceValidator.validateCityForUpdate(company, errors);
+    }
+
+    if (company.province) {
+      errors = this.resourceValidator.validateProvinceForUpdate(company, errors);
+    }
+    
+    if (company.sector) {
+      errors = this.resourceValidator.validateSectorForUpdate(company, errors);
+    }
+    
     errors = this.validateBranches(company, errors);
 
     return Promise.resolve(errors);
@@ -58,14 +67,8 @@ export default class Company implements CompaniesValidator {
   validateBranches(company: CompanyEntity, errors: Array<string>): Array<string> {
     const newErrors: Array<string> = [];
 
-    if (company.doesCompanyHaveBranches && company.branches.length === 0) {
-      newErrors.push(this.validationErrors.companies.BRANCHES_IS_EMPTY);
+    if (company.branches.length === 0) {
       return errors.concat(newErrors);
-    } else if (!company.doesCompanyHaveBranches && company.branches.length > 0) {
-      newErrors.push(this.validationErrors.companies.BRANCHES_MUST_BE_EMPTY);
-      return errors.concat(newErrors);
-    } else if (!company.doesCompanyHaveBranches && company.branches.length === 0) {
-      return errors;
     }
 
     const inexistentBranch = company.branches.find((branch) => {
@@ -74,7 +77,7 @@ export default class Company implements CompaniesValidator {
     });
 
     if (inexistentBranch !== undefined) {
-      newErrors.push(this.validationErrors.companies.BRANCHES_MUST_BE_EMPTY);
+      newErrors.push(this.validationErrors.companies.BRANCHES_MUST_EXIST);
       return errors.concat(newErrors);
     }
 
