@@ -20,15 +20,27 @@ export default class Companies implements Repository<number, CompanyEntity> {
       },
       {
         order: ['id'],
+      })
+      .then((response) => {
+        return !response ?
+          []
+            :
+          response.map((item) => this.mapper.mapToEntity(item));
       });
   }
 
   getAllPendingRequests(): Promise<Array<CompanyEntity>> {
     return this.model.findAll({
-      where: {
-        status: 'PENDING',
-      },
-    });
+        where: {
+          status: 'PENDING',
+        },
+      })
+      .then((response) => {
+        return !response ?
+          []
+            :
+          response.map((item) => this.mapper.mapToEntity(item));
+      });
   }
   getAllDeniedRequests(): Promise<Array<CompanyEntity>> {
     return this.model.findAll({

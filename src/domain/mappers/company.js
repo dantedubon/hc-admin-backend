@@ -73,9 +73,10 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
   mapToEntity(dataSource: any): CompanyEntity {
     // eslint-disable-line
     let branches: Array<number> = [];
+    const brachesSplitted = dataSource.branches.split(',');
 
-    if (dataSource.branches.split(',').length > 0) {
-      branches = branches.map((branch) => Number(branch));
+    if (brachesSplitted.length > 0 && brachesSplitted[0] !== '') {
+      branches = brachesSplitted.map((branch) => Number(branch));
     }
 
     const entity: CompanyEntity = {
