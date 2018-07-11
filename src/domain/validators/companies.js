@@ -22,9 +22,18 @@ export default class Company implements CompaniesValidator {
   validateCompanyForCreation(company: CompanyEntity): Array<string> {
     let errors: Array<string> = [];
 
-    errors = this.resourceValidator.validateCityForCreation(company, errors);
-    errors = this.resourceValidator.validateProvinceForCreation(company, errors);
-    errors = this.resourceValidator.validateSectorForCreation(company, errors);
+    if (company.city) {
+      errors = this.resourceValidator.validateCityForCreation(company, errors);
+    }
+
+    if (company.province) {
+      errors = this.resourceValidator.validateProvinceForCreation(company, errors);
+    }
+    
+    if (company.sector) {
+      errors = this.resourceValidator.validateSectorForCreation(company, errors);
+    }
+    
     errors = this.validateBranches(company, errors);
 
     return errors;
