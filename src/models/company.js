@@ -1,7 +1,7 @@
 module.exports = function(sequelize: any, DataTypes: any) {
   const Company = sequelize.define('company', {
     name: { type: DataTypes.STRING, allowNull: false },
-    description: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.TEXT, allowNull: false },
     sector: { type: DataTypes.INTEGER, allowNull: false },
     products: { type: DataTypes.STRING, allowNull: false },
     capitalPercentage: { type: DataTypes.INTEGER, allowNull: false },
