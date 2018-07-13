@@ -67,6 +67,23 @@ exports.default = {
           auth: false,
         },
       },
+      {
+        method: 'GET',
+        path: '/resources/kit',
+        handler: (request, h) =>
+          dispatch({
+            type: 'getKit',
+          })
+          .then((file) => {
+            const response = h.response(file);
+            response.type('zip');
+            return response;
+          }),
+        options: {
+          tags: ['api'],
+          auth: false,
+        },
+      },
     ]);
   },
 };

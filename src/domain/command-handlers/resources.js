@@ -1,4 +1,5 @@
 import Boom from 'boom';
+import fs from 'fs';
 
 import type { CommandHandler, Repository } from '../types/common';
 import type { City, Province, Sector } from '../types/resources';
@@ -39,5 +40,9 @@ export default class Resources implements CommandHandler {
 
   getSectors(): Promise<Array<Sector>> { // eslint-disable-line class-methods-use-this
     return Promise.resolve(this.sectors);
+  }
+
+  getKit(): Promise<any> {
+    return fs.readFileSync(`${__dirname}/../../data/static/KIT HECHO EN CASA.zip`);
   }
 }
