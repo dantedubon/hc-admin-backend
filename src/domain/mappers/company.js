@@ -16,7 +16,7 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
       capitalPercentage: entity.capitalPercentage,
       employeesPercentage: entity.employeesPercentage,
       productivityPercentage: entity.productivityPercentage,
-      province: (entity.province === null || entity.city === undefined) ? -1 : entity.city,
+      province: (entity.province === null || entity.city === undefined) ? -1 : entity.province,
       city: (entity.city === null || entity.city === undefined) ? -1 : entity.city,
       address: entity.address,
       branches: entity.branches.join(),
