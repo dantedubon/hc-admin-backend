@@ -1,24 +1,31 @@
 import Boom from 'boom';
 
-import type { CompanyEntity, CompaniesValidator } from '../types/company';
-import type { CommandHandler, Repository } from '../types/common';
-
-export default class News implements CommandHandler {
-  constructor({ newsRepository }) {
+export default class News {
+  constructor({ newsRepository, NewsValidator }) {
     this.repository = newsRepository;
+    this.validator = NewsValidator;
   }
 
-  createNews({ data }: { data: CompanyEntity }): Promise<CompanyEntity> {
+  createNews({ data }): Promise {
     const news = { ...data, isDeleted: false };
-
     return this.repository.create(news);
   }
 
   getNewsImage({ data }) {
     const { id } = data;
-
     return this.repository.getNewsImage(id);
   }
+
+  async updateNews({ data }): Promise {
+    const doesNewsExist = await this.validator.doesNewsExist({ id: data.id });
+
+    if (!doesNewsExist) {
+      return Boom.badRequest('Record does not exist in our system');
+    }
+
+    return this.repository.update(data.id, data);
+  }
+
   getAllNews() {
     return this.repository.getAll();
   }

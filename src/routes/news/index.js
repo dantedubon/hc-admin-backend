@@ -2,6 +2,7 @@
 import Joi from 'joi';
 import Pack from './package.json';
 import { newsRegisterModel } from '../../domain/validators/schemas/newsRegister.schema';
+import { newsUpdateModel } from '../../domain/validators/schemas/newsUpdate.schema';
 
 const headersValidation = Joi.object({
   authorization: Joi.string(),
@@ -53,6 +54,25 @@ exports.default = {
             params: {
               id: Joi.number().required(),
             },
+          },
+        },
+      },
+      {
+        method: 'PUT',
+        path: '/news/{id}',
+        handler: (request, h) =>
+          dispatch({
+            type: 'updateNews',
+            data: Object.assign({}, request.payload, request.params),
+          }),
+        options: {
+          tags: ['api'],
+          auth: false,
+          validate: {
+            params: {
+              id: Joi.number().required(),
+            },
+            payload: newsUpdateModel,
           },
         },
       },

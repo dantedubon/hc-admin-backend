@@ -10,6 +10,10 @@ export default class News {
     );
   }
 
+  findOne(query) {
+    return this.model.findOne(query);
+  }
+
   create(news) {
     return this.model.create(news);
   }
@@ -50,5 +54,22 @@ export default class News {
 
   getNewsImage(id) {
     return this.model.findById(id).then((response) => (response === null ? {} : response.image));
+  }
+
+  update(id: number, news): Promise<any> {
+    return this.model
+      .update(news, {
+        where: { id },
+        returning: true,
+        plain: true,
+      })
+      .then((result: any) => {
+        console.log(result);
+        return ((result && result[1] ? result[1] : { error: 'Company not found' }): Error);
+      })
+      .catch((error) => {
+        console.log(error);
+        return ({ error: 'Company not found' }: Error);
+      });
   }
 }
