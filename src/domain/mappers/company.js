@@ -6,6 +6,7 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
   mapToDataSourceForCreation(entity: CompanyEntity): CompanyDataSource {
     // eslint-disable-line
     const now: Date = new Date();
+    const urlsFixed = this.fixUrlFields(entity);
 
     const dataSource: CompanyDataSource = {
       id: entity.id,
@@ -22,10 +23,12 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
       branches: entity.branches.join(),
       email: entity.email,
       primaryPhoneNumber: entity.primaryPhoneNumber,
+      isPrimaryPhoneNumberInWhatsapp: entity.isPrimaryPhoneNumberInWhatsapp,
       secondaryPhoneNumber: entity.secondaryPhoneNumber,
-      facebook: entity.facebook,
-      instagram: entity.instagram,
-      website: entity.website,
+      isSecondaryPhoneNumberInWhatsapp: entity.isSecondaryPhoneNumberInWhatsapp,
+      facebook: urlsFixed.facebook,
+      instagram: urlsFixed.instagram,
+      website: urlsFixed.website,
       image: entity.image,
       isAccepted: false,
       isDeleted: false,
@@ -34,6 +37,33 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
       status: 'PENDING',
     };
     return dataSource;
+  }
+
+  fixUrlFields(entity) {
+    let facebook = entity.facebook;
+    let instagram = entity.instagram;
+    let website = entity.website;
+
+    if (entity.facebook && !entity.facebook.startsWith('http://')
+      && !entity.facebook.startsWith('https://')) {
+      facebook = `http://${entity.facebook}`;
+    }
+
+    if (entity.instagram && !entity.instagram.startsWith('http://')
+      && !entity.instagram.startsWith('https://')) {
+      instagram = `http://${entity.instagram}`;
+    }
+
+    if (entity.website && !entity.website.startsWith('http://')
+      && !entity.website.startsWith('https://')) {
+      website = `http://${entity.website}`;
+    }
+
+    return {
+      facebook,
+      instagram,
+      website,
+    };
   }
 
   mapToDataSourceForUpdate(entity: CompanyEntity): any {
@@ -49,6 +79,14 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
     delete dataSource.isAccepted;
     delete dataSource.isDeleted;
     delete dataSource.createdAt;
+
+    const urlsFixed = this.fixUrlFields(entity);
+
+    Object.keys(urlsFixed).forEach((item) => {
+      if (urlsFixed[item]) {
+        dataSource[key] = urlsFixed[key];
+      }
+    });
 
     return dataSource;
   }
@@ -94,7 +132,9 @@ implements Mapper<CompanyEntity, CompanyDataSource> {
       branches,
       email: dataSource.email,
       primaryPhoneNumber: dataSource.primaryPhoneNumber,
+      isPrimaryPhoneNumberInWhatsapp: dataSource.isPrimaryPhoneNumberInWhatsapp,
       secondaryPhoneNumber: dataSource.secondaryPhoneNumber,
+      isSecondaryPhoneNumberInWhatsapp: dataSource.isSecondaryPhoneNumberInWhatsapp,
       facebook: dataSource.facebook,
       instagram: dataSource.instagram,
       website: dataSource.website,
