@@ -70,15 +70,9 @@ exports.default = {
       {
         method: 'GET',
         path: '/resources/kit',
-        handler: (request, h) =>
-          dispatch({
-            type: 'getKit',
-          })
-          .then((file) => {
-            const response = h.response(file);
-            response.type('zip');
-            return response;
-          }),
+        handler: (request, h) => {
+          return h.file(`${__dirname}/../../data/static/KIT HECHO EN CASA.zip`)
+        },
         options: {
           tags: ['api'],
           auth: false,
