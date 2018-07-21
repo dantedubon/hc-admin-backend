@@ -69,7 +69,7 @@ exports.default = {
       },
       {
         method: 'GET',
-        path: '/resources/kit',
+        path: '/resources/kit.zip',
         handler: (request, h) => {
           return h.file(`${__dirname}/../../data/static/KIT HECHO EN CASA.zip`)
         },
