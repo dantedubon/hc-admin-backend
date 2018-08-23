@@ -2,12 +2,15 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
 const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'dev';
+
 const config = require('../config/sequelize')[env];
 
 console.log('Variables de Configuracion');
+console.log(`Start on ${process.env.NODE_ENV}`);
 console.log(config);
 const db = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, config);

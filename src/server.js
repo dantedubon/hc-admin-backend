@@ -14,6 +14,7 @@ const startServer = async () => {
     const server = await Glue.compose(manifest, options);
     await models.sequelize.sync();
     await server.start();
+    console.log(`Start on ${process.env.NODE_ENV}`);
     console.log(`✅  ${Pack.name} started.`);
     console.log('hapi days!');
   } catch (err) {
