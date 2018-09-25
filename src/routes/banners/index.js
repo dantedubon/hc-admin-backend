@@ -39,6 +39,38 @@ exports.default = {
           },
         },
       },
+      {
+        method: 'GET',
+        path: '/banners',
+        handler: (request, h) =>
+          dispatch({
+            type: 'getAllBanners',
+          }),
+
+        options: {
+          auth: false,
+          tags: ['api'],
+        },
+      },
+      {
+        method: 'DELETE',
+        path: '/banners/{id}',
+        handler: (request, h) =>
+          dispatch({
+            type: 'deleteBanner',
+            data: Object.assign({}, request.payload, request.params),
+          }),
+
+        options: {
+          auth: false,
+          tags: ['api'],
+          validate: {
+            params: {
+              id: Joi.required(),
+            },
+          },
+        },
+      },
     ]);
   },
 };

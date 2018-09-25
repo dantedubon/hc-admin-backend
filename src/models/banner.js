@@ -15,7 +15,6 @@ module.exports = function (sequelize: any, DataTypes: any) {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
-      unique: true,
     },
   });
 

@@ -18,4 +18,13 @@ export default class Banners implements CommandHandler {
       image: image._data,
     });
   }
+
+  getAllBanners(): Promise<Array<Banner>> {
+    return this.repository.getAll();
+  }
+  deleteBanner({ data }) {
+    const { id } = data;
+
+    return this.repository.delete(id);
+  }
 }

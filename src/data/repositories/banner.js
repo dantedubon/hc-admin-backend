@@ -8,10 +8,10 @@ export default class Banners implements Repository<number, Banner> {
   }
 
   getAll(): Promise<Array<Banner>> {
-    return this.model.findAll({ order: ['id'] });
+    return this.model.findAll({ order: ['order'] });
   }
 
-  getById(id: number): Promise<Banner> {
+  getById(id: any): Promise<Banner> {
     return this.model.findById(id);
   }
 
@@ -30,7 +30,7 @@ export default class Banners implements Repository<number, Banner> {
       .catch(() => ({ error: 'Encounter not found' }: Error));
   }
 
-  delete(id: number): Promise<number> {
+  delete(id: string): Promise<string> {
     return this.model.destroy({
       where: {
         id,
