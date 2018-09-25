@@ -27,4 +27,12 @@ export default class Banners implements CommandHandler {
 
     return this.repository.delete(id);
   }
+
+  async updateBanner({ data }): Promise<Banner> {
+    return this.repository.update(data.id, data);
+  }
+
+  async updateBannersOrder({ data }): Promise<Banner> {
+    return data.map((banner) => this.repository.updateBannerOrder(banner.id, banner.order));
+  }
 }

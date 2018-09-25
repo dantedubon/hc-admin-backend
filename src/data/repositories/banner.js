@@ -19,15 +19,26 @@ export default class Banners implements Repository<number, Banner> {
     return this.model.create(banner);
   }
 
-  update(id: number, encounter: Banner): Promise<any> {
+  update(id: string, banner: Banner): Promise<any> {
     return this.model
-      .update(encounter, {
+      .update(banner, {
         where: { id },
         returning: true,
         plain: true,
       })
-      .then((result: any) => ((result && result[1] ? result[1] : { error: 'Encounter not found' }): Error))
-      .catch(() => ({ error: 'Encounter not found' }: Error));
+      .then((result: any) => ((result && result[1] ? result[1] : { error: 'Banner not found' }): Error))
+      .catch(() => ({ error: 'Banner not found' }: Error));
+  }
+
+  updateBannerOrder(id: string, order: number): Promise<any> {
+    return this.model.update(
+      { order },
+      {
+        where: {
+          id,
+        },
+      },
+    );
   }
 
   delete(id: string): Promise<string> {

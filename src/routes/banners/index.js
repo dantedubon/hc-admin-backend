@@ -71,6 +71,21 @@ exports.default = {
           },
         },
       },
+
+      {
+        method: 'PUT',
+        path: '/banners/order',
+        handler: (request, h) =>
+          dispatch({
+            type: 'updateBannersOrder',
+            data: request.payload,
+          }),
+
+        options: {
+          auth: false,
+          tags: ['api'],
+        },
+      },
     ]);
   },
 };
