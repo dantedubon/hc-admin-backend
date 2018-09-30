@@ -36,6 +36,7 @@ exports.default = {
           payload: {
             output: 'stream',
             allow: 'multipart/form-data', // important
+            maxBytes: 1000 * 1000 * 3,
           },
         },
       },
