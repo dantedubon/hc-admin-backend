@@ -1,6 +1,7 @@
 import Boom from 'boom';
 
 import type { Banner } from '../types/banner';
+import sharp from 'sharp';
 import type { CommandHandler, Repository } from '../types/common';
 
 export default class Banners implements CommandHandler {
@@ -9,14 +10,20 @@ export default class Banners implements CommandHandler {
     this.repository = bannerRepository;
   }
 
-  createBanner({ data }): Promise<Banner> {
+  async createBanner({ data }): Promise<Banner> {
     const { name, description, image } = data;
 
+    const newImage = await sharp(image._data).resize(1250, 500).min().toBuffer();
     return this.repository.create({
       name,
       description,
-      image: image._data,
+      image: newImage,
     });
+    // .then((newImage) => this.repository.create({
+    //   name,
+    //   description,
+    //   image: newImage,
+    // }));
   }
 
   getAllBanners(): Promise<Array<Banner>> {
