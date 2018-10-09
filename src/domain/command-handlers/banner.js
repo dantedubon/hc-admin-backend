@@ -13,7 +13,7 @@ export default class Banners implements CommandHandler {
   async createBanner({ data }): Promise<Banner> {
     const { name, description, image } = data;
 
-    const newImage = await sharp(image._data).resize(1250, 500).min().toBuffer();
+    const newImage = await sharp(image._data).resize(960, 250).max().toBuffer();
     return this.repository.create({
       name,
       description,
